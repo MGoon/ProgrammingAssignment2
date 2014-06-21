@@ -1,34 +1,30 @@
-## Put comments here that give an overall description of what your
-## functions do
-
-## Write a short comment describing this function
+## Creates a list of functions for matrix storage and retrieval operations
 
 makeCacheMatrix <- function(x = matrix()) {
 m <- NULL
+		## sets the matrix
         set <- function(y) {
                 x <<- y
                 m <<- NULL
         }
-        get <- function() x
-        setsolve <- function(solve) m <<- solve
-        getsolve <- function() m
+        get <- function() x ## retrieves the matrix
+        setsolve <- function(solve) m <<- solve  ## sets the matrix inverse 
+        getsolve <- function() m                 ## retrieves the existing matrix inverse
         list(set = set, get = get,
              setsolve = setsolve,
              getsolve = getsolve)
 }
 
 
-## Write a short comment describing this function
-
 cacheSolve <- function(x, ...) {
-        ## Return a matrix that is the inverse of 'x'
+        ## Returns a matrix that is the inverse of 'x'
 		 m <- x$getsolve()
-        if(!is.null(m)) {
+        if(!is.null(m)) { ## if the matrix inverse exists, retrieve
                 message("getting cached data")
-                return(m)
+                return(m) ## exit function, returning the existing inverse
         }
-        data <- x$get()
-        m <- solve(data, ...)
-        x$setsolve(m)
-        m
+        data <- x$get() ## gets the matrix
+        m <- solve(data, ...) ## solves the matrix inverse
+        x$setsolve(m)  ## stores the matrix inverse
+        m ## display matrix inverse
 }
